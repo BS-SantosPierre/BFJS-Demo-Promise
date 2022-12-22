@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="loading">Loading ...</h1>
+
+    <section id="comments">
+
+    </section>
+    <script src="./scripts/jquery.js"></script>
+    <script src="./scripts/main.js"></script>
+    <script>
+    $(document).ready(() => {
+        // Version JQUERY, on fabrique notre requête en lui indiquant l'url et sa méthode
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/comments',
+            method: 'GET'
+        }).done((comments) => {
+            // Done : équivalent "then" qui va s'éxécuter si tout se passe bien 
+            $('#loading').hide();
+            $.each(comments, (i, comment) => {
+                $('#comments').append(`
+                    <div>
+                        <h3>Comment n° ${comment.id}</h3>
+                        <p>${comment.body}</p>
+                    </div>
+                `)
+            })
+        }).fail((err) => {
+            // Done : équivalent "catch" qui va s'éxécuter si il y a eu une erreur
+            $('#loading').text("Une erreur est survenue")
+            console.log(err);
+        })
+       });
+    </script>
+</body>
+</html>
+
