@@ -27,7 +27,7 @@ orderPizza('DIAVOLA')
         console.log("The pizza cost "+ price);
         // si je n'ai pas assez d'argent j'envoie une erreur qui sera récupérer dans le catch
         if (price > 0) {
-            Promise.reject("I have no money");
+            return Promise.reject("I have no money");
         }
         console.log("Ok");
     })
@@ -45,7 +45,7 @@ fetch('https://jsonplaceholder.typicode.com/coments')
     .then((res) => {
         // Si il y a eu un soucis lors de la requête je renvoie un message d'erreur que je récupère dans le catch
         if (!res.ok) {
-            Promise.reject({status: res.status, error: res.statusText});
+            return Promise.reject({status: res.status, error: res.statusText});
         }
         // Je convertis les données reçu en JSON
         return res.json();
