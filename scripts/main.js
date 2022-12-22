@@ -75,14 +75,16 @@ async function getComments() {
         // Si la requête n'aboutis pas
         if (!res.ok) {
             // Envoie d'un message d'erreur, sous format string
-            throw new Error(JSON.stringify({ status: res.status, error: res.statusText}))
+            // throw new Error(JSON.stringify({ status: res.status, error: res.statusText}))
+            // Plus simple
+            throw { status: res.status, error: res.statusText}
         }
         const data = await res.json();
     } catch (error) {
         // Gestion de l'erreur faites plus haut
         // Conversion du string en object javascript
-        const jsonError = JSON.parse(error.message);
-        if (jsonError.status === 404) {
+        // const jsonError = JSON.parse(error.message);
+        if (error.status === 404) {
             console.log("Comments not found");
         }
     }
